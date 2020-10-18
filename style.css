@@ -1,0 +1,24 @@
+.backbody{
+    background-color: rgb(134, 33, 218);
+}
+a{
+    color: ghostwhite;
+}
+
+#card
+{
+    width: 400px;
+    display: none;
+}
+
+#start{
+    background-color: indigo;
+    color: ivory;
+}
+
+#instructions
+{
+    
+    width: 400px;
+    display: initial;
+}
