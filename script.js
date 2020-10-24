@@ -1,8 +1,8 @@
-//initialize cards
+//initialize questions, options and answers
 
 var question = ["HTML stands for?","which of the following tag is used to mark a begining of paragraph","Correct HTML tag for the largest heading is","Markup tags tell the web browser","What are Empty elements and is it valid?","Which of the following attributes of text box control allow to limit the maximum character?","Web pages starts with which ofthe following tag?","The attribute which define the relationship between current document and HREF'ed URL is","Which of the following is a container?","The tag used to create a new list item and also include a hyperlink is","Can the element <First> be replaced with <first>","The tag used to create a hypertext relationship between current document and another URL is","Which built-in method calls a function for each element in the array?","Which of the following function of String object returns the index within the calling String object of the first occurrence of the specified value?","Which of the following function of String object returns the calling string value converted to lower case while respecting the current locale?","Which of the following function of Array object returns a new array comprised of this array joined with other array(s) and/or value(s)?","Which of the following function of Array object returns a string representing the array and its elements?","Which of the following is a valid type of function javascript supports?"];
 
-var options = [
+var game = [
 
     ['A. Hyper Text Markup Language','B. High Text Markup Language','C. Hyper Tabular Markup Language','D. None of these'],
     ['A. <TD>','B. <br>','C. <P>','D. <TR>'],
@@ -24,12 +24,12 @@ var options = [
     ['A. named function','B.  anonymous function','C.  Both of the above. ','D.  None of the above.']
 
 ];
-
 var solution = ["A","C","D","B","B","C","C","A","D","A","B","C","C","D","A","A","D","C"];
-var totalq = question.length;
-//
-       
 
+//set variables
+
+var options = [];
+var totalq = question.length;
 var questiontext = document.querySelector("#Question");
 var start = document.querySelector("#start");
 var restart = document.querySelector("#restart");
@@ -38,40 +38,76 @@ var result = document.querySelector("#result");
 var timer = document.querySelector("#timer");
 var player = document.querySelector("#player");
 var savescore = document.querySelector("#exit");
-var scorecard= document.querySelector("#score");
+var scorecard = document.querySelector("#score");
+var questioncard = document.querySelector("#card");
+var instructions = document.querySelector("#instructions");
 var answer = "";
 var score = 0;
 var gametime = 0;
-var gameon = 0;
 var current = 0;
 var timeplay = 0;
-
-//set timer
 var timeron = 0;
+
+//create functions
+
+    //set time interval
+
+
 
 function startTime(){
     
+    
     timeron = setInterval(function(){
     timer.textContent = "Time : " + timeplay;
-    timeplay++;
+    timeplay--;
+    if(timeplay<1)
+    {endGame();}
     },1000);
+
+   
 }
 
 
 function stopTime(){
     clearInterval(timeron);
 }
-//create functions
+
 function startGame()
 {   
+    options = game;
+    timeplay = 60;
+    startTime();
+    
     //document.getElementById("score").style.display = "none";
-    document.getElementById("instructions").style.display = "none";
-    document.getElementById("card").style.display = "initial";
+    instructions.setAttribute("style","display: none");
+    questioncard.setAttribute("style","display: initial");
     setquestion();
     score = 0;
     gametime = 0;
     gameon = 1;
-    startTime();
+    
+}
+
+function endGame()
+{
+    timeplay = 0;
+    timer.textContent = "";
+    stopTime();
+    result.textContent = "Time Out!";
+    setTimeout(function(){
+
+        gametime = timeplay;
+    
+        document.getElementById("card").style.display = "none";
+        document.getElementById("score").style.display = "initial";
+        document.getElementById("finalscore").textContent = "Your final Score is "+ score+ " and your playtime is "+ gametime + " seconds";
+
+    }
+        ,1000);
+    
+    
+   
+
 }
 
 function resetGame(){
@@ -83,7 +119,7 @@ function resetGame(){
 function setquestion()
 { 
     
-    if(question.length > 0)
+    if(question.length > 0 && timeplay > 0)
     {
         result.textContent = "";
         document.getElementById("choices").innerHTML = "";
@@ -99,6 +135,7 @@ function setquestion()
             var newbutton = document.createElement("button");
             newbutton.classList.add("btn-info");
             newbutton.classList.add("rounded-pill");
+            newbutton.classList.add("m-1");
             newbutton.textContent = options[current][i];
             setchoices.appendChild(newbutton);
             choices.appendChild(setchoices);
@@ -106,24 +143,23 @@ function setquestion()
         
         //set answer
         answer = solution[current];
-        //current++;
-        gameon++;
+        
         //Remove answer from list
-        function curr(inx)
-        {
-            return current;
-        }
-        question.splice(current,1);
+         question.splice(current,1);
         options.splice(current,1);
         solution.splice(current,1);
         console.log(question);
-        //array = array.filter(array => array.indexOf(1));
+       
         
 
 
     }
     else
     {
+        timeplay = 0;
+        result.classList.remove();
+        result.classList.add("border-top");
+        result.classList.add("text-secondary");
         result.textContent = "Game over";
         gametime = timeplay;
         stopTime();
@@ -149,17 +185,28 @@ choices.addEventListener("click",function(event)
         
         if(event.target.textContent.charAt(0) == answer)
         {
-            result.textContent = "correct";
+            result.classList.remove("text-danger");
+            result.classList.add("border-top");
+            result.classList.add("text-success");
+            result.textContent = "Correct!";
             document.getElementById("choices").style.pointerEvents = "none";
             setTimeout(setquestion,1000);
             score++;
+            timeplay +=5;
+            
+            
 
         }
         else
         {
-            result.textContent = "incorrect";
+            result.classList.remove("text-success");
+            result.classList.add("border-top");
+            result.classList.add("text-danger");
+            result.textContent = "Incorrect";
             document.getElementById("choices").style.pointerEvents = "none";
             setTimeout(setquestion,1000);
+            timeplay -= 5;
+            
             
         }
 

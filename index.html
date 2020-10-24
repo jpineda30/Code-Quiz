@@ -11,27 +11,43 @@
 <body class="container-fluid backbody p-0">
         <!--only row-->
         <div class="row d-flex">
-            <a class="text-left px-3 mx-1">Placeholder view score</a>
-            <a id="timer" class="text-right flex-fill px-3 mx-1">Placeholder timer</a>
+            <a href="scores.html" class="text-left px-3 mx-1">View high scores</a>
+            <a id="timer" class="text-right flex-fill px-3 mx-1"> </a>
         </div> 
          <!--quizz row-->
-         <div class="row d-flex justify-content-center m-3 p-3">
+            <div class="row d-flex justify-content-center m-3 p-3">
 
-            
-            
                 <!--quizz cars-->
                 <div id="card" class="row card m-3 p-2">
-                    <h2 id="Question">Question</h2>
+                    <h1 id="Question" class="h5 text-justify pb-3">Question</h1>
                     <ul id="choices">Choice</ul>
                     <a id="result"></a>
                 </div>
 
-                  <!--quizz cars-->
+                  <!--quizz instructions-->
                   <div id="instructions" class="row card m-3 p-2">
-                    <h2 class="h3">Welcome to code quiz</h2>
-                    <ul>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum, enim voluptates animi quod in pariatur iure quidem reprehenderit beatae fuga voluptate tempore obcaecati doloremque expedita libero sit, deleniti voluptatum? Tenetur!</ul>
-                    <button id="start" class="btn btn-sm rounded-pill">Start quiz</button>
+                    <h2 class="h3 text-center">Code Quiz Challenge</h2>
+                    <p class="text-justify">Test your knowledge about javascript and html with this awesome quiz. You starting point is 60 seconds if you answer correctly 5 seconds will be added to the timer, otherwise 5 seconds will be subtracted. Can you answer all the questions?.</p>
+                    <ul></ul>
+                    <div class="d-flex justify-content-center">
+                        <button id="start" class="btn btn-sm rounded-pill ">Start quiz</button>   
+                    </div>
+                    
                 </div>
+
+                  <!--quizz score-->
+                  <div id="score" class="row card m-3 p-2 ">
+                    <h2 id="finalscore" class="h3">"congrats"</h2>
+                    <label for="player" class="p-1">Enter your name</label>
+                    <input id="player" type="text">
+
+                        <div class="d-flex justify-content-around">
+                            <button id="restart" class=" col btn btn-sm rounded-pill m-3">Restart</button>
+                            <button id="exit" class=" col btn btn-sm rounded-pill m-3">Exit</button>
+                        </div>
+                   
+            </div>
+
 
 
          </div>
