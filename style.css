@@ -5,20 +5,30 @@ a{
     color: ghostwhite;
 }
 
-#card
+#card, #score
 {
     width: 400px;
     display: none;
 }
 
-#start{
+#start, #exit, #restart, #goback, #clear{
     background-color: indigo;
     color: ivory;
 }
 
-#instructions
+#instructions, #highscores
 {
     
     width: 400px;
     display: initial;
+    
+}
+
+.scoresline
+{
+    background-color: mediumslateblue;
+    color: white;
+    border: 2px;
+    border-color: white;
+
 }
